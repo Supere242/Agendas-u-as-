@@ -651,8 +651,8 @@
         }
 
         document.getElementById('btn-abrir-admin').addEventListener('click', () => {
-            const pass = prompt("Contraseña de acceso (escribe 'admin'):");
-            if(pass === "admin") {
+            const pass = prompt("Contraseña de acceso :");
+            if(pass === "admin1") {
                 document.getElementById('panel-admin').style.display = 'block';
             } else if (pass !== null) {
                 alert("Contraseña incorrecta.");
