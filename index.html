@@ -432,12 +432,8 @@
 
             document.getElementById('mensaje-exito').style.display = 'block';
             
-            setTimeout(() => {
-                window.open(urlWhatsapp, '_blank');
-                document.getElementById('agendaForm').reset();
-                horaSelect.innerHTML = '<option value="" disabled selected>Selecciona primero una fecha...</option>';
-                document.getElementById('mensaje-exito').style.display = 'none';
-            }, 1200);
+                        window.location.href = urlWhatsapp; 
+            document.getElementById('agendaForm').reset();
         });
 
         // --- 5. PANEL ADMIN ---
