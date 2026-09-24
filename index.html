@@ -1,0 +1,512 @@
+Sí, exacto, es ese código. Sin embargo, al copiar y pegar el texto normal del chat, se borraron algunos símbolos matemáticos y comillas invertidas (`) en la parte final, y los enlaces se deformaron. Si lo guardás así, los horarios y el botón de WhatsApp no van a funcionar.
+Para que ande perfecto y no tenga errores, copiá el código desde este cuadro negro de abajo. Te recomiendo usar el botón de "Copiar código" (o Copy) que suele aparecer en la esquina superior derecha del cuadro. Luego pegalo en tu Bloc de Notas y guardalo como agenda_premium.html.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva - Estudio de Uñas</title>
+    <!-- Fuentes premium: Playfair Display para títulos, Inter para textos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta minimalista y elegante (Estilo Boutique) */
+            --bg-color: #F7F5F2;          /* Blanco roto / Beige muy suave */
+            --card-bg: #FFFFFF;           /* Blanco puro */
+            --text-main: #2C2A29;         /* Negro suave / Carbón */
+            --text-muted: #8C8987;        /* Gris texto secundario */
+            --accent: #D4B2A7;            /* Rosa viejo / Nude elegante */
+            --accent-hover: #C29F94;      /* Rosa viejo más oscuro */
+            --input-bg: #FCFBFA;          /* Fondo de inputs */
+            --border-color: #E8E5E1;      /* Bordes suaves */
+            --shadow: rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            background-image: radial-gradient(#e5e1da 1px, transparent 1px);
+            background-size: 30px 30px; /* Textura sutil de puntitos */
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 3rem 2.5rem;
+            border-radius: 24px; 
+            box-shadow: 0 15px 35px var(--shadow), 0 5px 15px rgba(0,0,0,0.02);
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.8);
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text-main);
+            margin: 0 0 5px 0;
+            font-weight: 600;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            border-radius: 12px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: #bbb;
+            font-weight: 300;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: var(--card-bg);
+            box-shadow: 0 0 0 4px rgba(212, 178, 167, 0.15);
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+            display: block;
+        }
+
+        button.btn-principal {
+            width: 100%;
+            padding: 1.1rem;
+            background-color: var(--text-main);
+            color: var(--card-bg);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        button.btn-principal:hover {
+            background-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 178, 167, 0.3);
+        }
+
+        #mensaje-exito {
+            display: none;
+            background-color: #FAFAFA;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- SECCIÓN ADMIN --- */
+        .admin-trigger-container {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-admin-visible {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            transition: 0.3s;
+        }
+        
+        .btn-admin-visible:hover {
+            background: var(--input-bg);
+            color: var(--text-main);
+        }
+
+        /* --- PANEL ADMIN (MODAL ELEGANTE) --- */
+        #panel-admin {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 42, 41, 0.4);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            overflow-y: auto;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        .admin-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .admin-header h2 {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .close-btn:hover {
+            background: var(--border-color);
+        }
+
+        .dia-config {
+            background: var(--input-bg);
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .dia-config label {
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .dia-config input {
+            background: var(--card-bg);
+            margin-top: 0.5rem;
+        }
+
+        #msg-guardado {
+            display: none; 
+            background: var(--input-bg); 
+            border: 1px solid var(--accent);
+            color: var(--text-main); 
+            padding: 1rem; 
+            border-radius: 12px; 
+            margin-top:1.5rem; 
+            text-align:center; 
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="vista-cliente">
+        <div class="header-section">
+            <h2>Reserva tu cita</h2>
+            <p>Estudio de Uñas</p>
+        </div>
+        
+        <form id="agendaForm">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" required placeholder="Ej: María López">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" required placeholder="Ej: 099 123 456">
+            </div>
+
+            <div class="form-group">
+                <label for="servicio">Servicio</label>
+                <select id="servicio" required>
+                    <option value="" disabled selected>Selecciona un servicio...</option>
+                    <option value="Esmaltado Semipermanente">Esmaltado Semipermanente</option>
+                    <option value="Kapping">Kapping</option>
+                    <option value="Soft Gel">Soft Gel</option>
+                    <option value="Retiro">Retiro</option>
+                    <option value="Retiro de otro salón">Retiro de otro salón</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" id="fecha" required>
+                <span class="hint">Disponibilidad máxima de 30 días.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="hora">Hora</label>
+                <select id="hora" required>
+                    <option value="" disabled selected>Selecciona primero una fecha...</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-principal" id="btn-reservar">Confirmar Reserva</button>
+        </form>
+
+        <div id="mensaje-exito">
+            Preparando tu mensaje... Redirigiendo a WhatsApp.
+        </div>
+
+        <div class="admin-trigger-container">
+            <button type="button" class="btn-admin-visible" id="btn-abrir-admin">Gestión de Horarios</button>
+        </div>
+    </div>
+
+    <!-- Panel de Administración -->
+    <div id="panel-admin">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2>Configuración</h2>
+                <button class="close-btn" id="btn-cerrar-admin">Cerrar</button>
+            </div>
+            
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+                Define las horas de trabajo para cada día. Escribe los números separados por comas (Ej: 10, 11, 14, 15). <br><strong>Para días libres, deja el espacio vacío.</strong>
+            </p>
+
+            <form id="form-horarios">
+                <div id="dias-contenedor">
+                    <!-- Generado por JS -->
+                </div>
+                <button type="submit" class="btn-principal">Guardar Cambios</button>
+            </form>
+            <div id="msg-guardado">
+                Horarios actualizados exitosamente.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. CONFIGURACIÓN DEL SISTEMA ---
+        const NUMERO_WHATSAPP = "59899000000"; // <-- CAMBIAR POR EL DE TU AMIGA
+
+        const nombresDias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        
+        const horariosDefault = {
+            1: [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            2: [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            3: [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            4: [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            5: [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            6: [10, 11, 12, 13, 14], 
+            0: [] 
+        };
+
+        let horariosGuardados = JSON.parse(localStorage.getItem('horarios_unas_v4')) || horariosDefault;
+
+        // --- 2. LÓGICA DE FECHAS (1 mes max) ---
+        const fechaInput = document.getElementById('fecha');
+        
+        const formatearFechaLocal = (fecha) => {
+            const yyyy = fecha.getFullYear();
+            const mm = String(fecha.getMonth() + 1).padStart(2, '0');
+            const dd = String(fecha.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        };
+
+        const hoy = new Date();
+        const minStr = formatearFechaLocal(hoy);
+        
+        const unMesDespues = new Date(hoy);
+        unMesDespues.setMonth(unMesDespues.getMonth() + 1);
+        const maxStr = formatearFechaLocal(unMesDespues);
+        
+        fechaInput.setAttribute('min', minStr);
+        fechaInput.setAttribute('max', maxStr);
+
+        // --- 3. HORAS DINÁMICAS ---
+        const horaSelect = document.getElementById('hora');
+
+        fechaInput.addEventListener('change', function() {
+            const dateVal = new Date(this.value + "T12:00:00"); 
+            const dayOfWeek = dateVal.getDay(); 
+            
+            const horasDisponibles = horariosGuardados[dayOfWeek] || [];
+            
+            horaSelect.innerHTML = '';
+            
+            if(horasDisponibles.length === 0) {
+                let opt = document.createElement('option');
+                opt.value = "";
+                opt.text = "Local cerrado este día";
+                opt.disabled = true;
+                opt.selected = true;
+                horaSelect.appendChild(opt);
+            } else {
+                let optIni = document.createElement('option');
+                optIni.value = "";
+                optIni.text = "Selecciona un horario...";
+                optIni.disabled = true;
+                optIni.selected = true;
+                horaSelect.appendChild(optIni);
+
+                horasDisponibles.sort((a,b) => a - b).forEach(h => {
+                    let opt = document.createElement('option');
+                    let displayHour = h < 10 ? `0${h}:00` : `${h}:00`;
+                    opt.value = `${h}:00`;
+                    opt.text = `${displayHour} hs`;
+                    horaSelect.appendChild(opt);
+                });
+            }
+        });
+
+        // --- 4. ENVÍO WHATSAPP ---
+        document.getElementById('agendaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const telefono = document.getElementById('telefono').value;
+            const servicio = document.getElementById('servicio').value;
+            const fecha = document.getElementById('fecha').value;
+            const hora = document.getElementById('hora').value;
+
+            const [anio, mes, dia] = fecha.split('-');
+            const fechaFormateada = `${dia}/${mes}/${anio}`;
+
+            const mensajeOriginal = `Hola! Soy ${nombre}.\nQuería reservar un turno para *${servicio}*.\n\n📅 Fecha: ${fechaFormateada}\n⏰ Hora: ${hora}\n📞 Tel: ${telefono}`;
+            const mensajeCodificado = encodeURIComponent(mensajeOriginal);
+            const urlWhatsapp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`;
+
+            document.getElementById('mensaje-exito').style.display = 'block';
+            
+            setTimeout(() => {
+                window.open(urlWhatsapp, '_blank');
+                document.getElementById('agendaForm').reset();
+                horaSelect.innerHTML = '<option value="" disabled selected>Selecciona primero una fecha...</option>';
+                document.getElementById('mensaje-exito').style.display = 'none';
+            }, 1200);
+        });
+
+        // --- 5. PANEL ADMIN ---
+        const contenedorDias = document.getElementById('dias-contenedor');
+        for(let i = 0; i <= 6; i++) {
+            let indexDia = i === 6 ? 0 : i + 1; 
+            
+            let div = document.createElement('div');
+            div.className = 'dia-config';
+            
+            let label = document.createElement('label');
+            label.innerText = nombresDias[indexDia];
+            
+            let input = document.createElement('input');
+            input.type = 'text';
+            input.id = `input-dia-${indexDia}`;
+            input.value = horariosGuardados[indexDia].join(', ');
+            input.placeholder = "Ej: 10, 11, 14, 15, 16";
+            
+            let hint = document.createElement('span');
+            hint.className = 'hint';
+            hint.innerText = "Dejar en blanco si está cerrado.";
+
+            div.appendChild(label);
+            div.appendChild(input);
+            div.appendChild(hint);
+            contenedorDias.appendChild(div);
+        }
+
+        document.getElementById('btn-abrir-admin').addEventListener('click', () => {
+            const pass = prompt("Contraseña de acceso (escribe 'admin'):");
+            if(pass === "admin") {
+                document.getElementById('panel-admin').style.display = 'block';
+            } else if (pass !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        });
+
+        document.getElementById('btn-cerrar-admin').addEventListener('click', () => {
+            document.getElementById('panel-admin').style.display = 'none';
+        });
+
+        document.getElementById('form-horarios').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let nuevosHorarios = {};
+            for(let i = 0; i <= 6; i++) {
+                let valorInput = document.getElementById(`input-dia-${i}`).value;
+                let horasArray = valorInput.split(',')
+                                           .map(h => parseInt(h.trim()))
+                                           .filter(h => !isNaN(h));
+                nuevosHorarios[i] = horasArray;
+            }
+
+            localStorage.setItem('horarios_unas_v4', JSON.stringify(nuevosHorarios));
+            horariosGuardados = nuevosHorarios;
+            
+            const msg = document.getElementById('msg-guardado');
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 3000);
+            
+            if(fechaInput.value) {
+                fechaInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+    </script>
+</body>
+</html>
+
