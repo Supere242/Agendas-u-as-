@@ -279,64 +279,61 @@
             </div>
 
             <div class="form-group">
-    <label>Servicio</label>
-    
-    <!-- La caja visual que reemplaza al selector nativo -->
-    <div id="caja-select" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background-color: #FFFFFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-        <span id="texto-caja-select" style="color: #666; font-size: 0.95rem;">Selecciona hasta 2 servicios...</span>
-        <span style="font-size: 0.8rem;">▼</span>
-    </div>
+                <label>Servicio</label>
+                
+                <!-- La caja visual que reemplaza al selector nativo -->
+                <div id="caja-select" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background-color: #FFFFFF; cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span id="texto-caja-select" style="color: #666; font-size: 0.95rem;">Selecciona hasta 2 servicios...</span>
+                    <span style="font-size: 0.8rem;">▼</span>
+                </div>
 
-    <!-- La lista desplegable con checkboxes -->
-       <!-- La lista desplegable con checkboxes MEJORADA -->
-    <div id="lista-opciones" style="display: none; border: 1px solid var(--border-color); border-radius: 8px; background-color: #FFFFFF; max-height: 240px; overflow-y: auto; overflow-x: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 0; width: 100%; box-sizing: border-box;">
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Esmaltado Semipermanente $700" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Esmaltado Semipermanente $700</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Capping $800" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Capping $800</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Mantenimiento Capping $700" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Mantenimiento Capping $700</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Soft Gel $900" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Soft Gel $900</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Mantenimiento Soft Gel $800" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Mantenimiento Soft Gel $800</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Retiro de servicio $200" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Retiro de servicio $200</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Retiro de servicio de otro salon $300" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Retiro de servicio de otro salon $300</span>
-        </label>
-        
-        <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; width: 100%; box-sizing: border-box;">
-            <input type="checkbox" class="servicio-cb" value="Más de 2 uñas con diseños consultar precio" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
-            <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Más de 2 uñas con diseños (consultar)</span>
-        </label>
-    </div>
+                <!-- La lista desplegable con checkboxes MEJORADA -->
+                <div id="lista-opciones" style="display: none; border: 1px solid var(--border-color); border-radius: 8px; background-color: #FFFFFF; max-height: 240px; overflow-y: auto; overflow-x: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 0; width: 100%; box-sizing: border-box;">
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Esmaltado Semipermanente $700" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Esmaltado Semipermanente $700</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Capping $800" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Capping $800</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Mantenimiento Capping $700" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Mantenimiento Capping $700</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Soft Gel $900" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Soft Gel $900</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Mantenimiento Soft Gel $800" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Mantenimiento Soft Gel $800</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Retiro de servicio $200" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Retiro de servicio $200</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Retiro de servicio de otro salon $300" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Retiro de servicio de otro salon $300</span>
+                    </label>
+                    
+                    <label style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 15px; margin: 0; cursor: pointer; width: 100%; box-sizing: border-box;">
+                        <input type="checkbox" class="servicio-cb" value="Más de 2 uñas con diseños consultar precio" style="flex-shrink: 0; width: 18px; height: 18px; margin-top: 2px;"> 
+                        <span style="font-size: 0.9rem; line-height: 1.3; color: #333; word-break: break-word;">Más de 2 uñas con diseños (consultar)</span>
+                    </label>
+                </div>
 
-    <!-- Input invisible que le pasa el dato final a Google Calendar -->
-    <input type="hidden" id="servicio" required>
-</div>
-
-
+                <!-- Input invisible que le pasa el dato final a Google Calendar. Le quitamos el REQUIRED -->
+                <input type="hidden" id="servicio">
+            </div>
 
             <div class="form-group">
                 <label for="fecha">Fecha</label>
@@ -351,18 +348,18 @@
                 </select>
             </div>
 
-          <!-- BOTÓN GRANDE Y FORZADO -->
-    <button type="submit" class="btn-submit" style="width: 100%; padding: 16px; background-color: #111; color: #ffffff; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s;">
-        Confirmar Reserva
-    </button>
+            <!-- BOTÓN GRANDE Y FORZADO -->
+            <button type="submit" class="btn-submit" style="width: 100%; padding: 16px; background-color: #111; color: #ffffff; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.3s;">
+                Confirmar Reserva
+            </button>
 
-    <!-- TEXTO DE TÉRMINOS -->
-    <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #666; line-height: 1.5; padding: 0 10px;">
-        Al enviar tu reserva, verificaremos el horario y te escribiremos a tu número para solicitar una seña del 50% y asegurar tu lugar. Los términos de reserva están en las historias destacadas de nuestro instagram <a href="https://www.instagram.com/bloommynails" target="_blank" style="color: #d81b60; text-decoration: none; font-weight: 600;">@bloommynails</a>.<br><br>
-        ¡Hablamos pronto! 💖
-    </div>
+            <!-- TEXTO DE TÉRMINOS -->
+            <div style="margin-top: 20px; text-align: center; font-size: 0.85rem; color: #666; line-height: 1.5; padding: 0 10px;">
+                Al enviar tu reserva, verificaremos el horario y te escribiremos a tu número para solicitar una seña del 50% y asegurar tu lugar. Los términos de reserva están en las historias destacadas de nuestro instagram <a href="https://www.instagram.com/bloommynails" target="_blank" style="color: #d81b60; text-decoration: none; font-weight: 600;">@bloommynails</a>.<br><br>
+                ¡Hablamos pronto! 💖
+            </div>
 
-</form>
+        </form>
 
         <div id="mensaje-exito">
             Preparando tu mensaje... Redirigiendo a WhatsApp.
@@ -396,21 +393,26 @@
             </div>
         </div>
     </div>
-<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
+    
+    <!-- Librerías de Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
+    
     <script>
         // --- 1. INICIALIZAR FIREBASE ---
-const firebaseConfig = {
-    apiKey: "AIzaSyANkY82Wp64TiCSUdGQRB7vFQqMXYsIlYg",
-    authDomain: "agenda-bloommy.firebaseapp.com",
-    projectId: "agenda-bloommy",
-    storageBucket: "agenda-bloommy.firebasestorage.app",
-    messagingSenderId: "589777318915",
-    appId: "1:589777318915:web:e1660622ddf69ee1c54a36"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-        // --- 1. CONFIGURACIÓN DEL SISTEMA ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyANkY82Wp64TiCSUdGQRB7vFQqMXYsIlYg",
+            authDomain: "agenda-bloommy.firebaseapp.com",
+            databaseURL: "https://agenda-bloommy-default-rtdb.firebaseio.com", // <-- AHORA TIENE LA URL
+            projectId: "agenda-bloommy",
+            storageBucket: "agenda-bloommy.firebasestorage.app",
+            messagingSenderId: "589777318915",
+            appId: "1:589777318915:web:e1660622ddf69ee1c54a36"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // --- 2. CONFIGURACIÓN DEL SISTEMA ---
         const NUMERO_WHATSAPP = "59895340907"; // <-- CAMBIAR POR EL DE TU AMIGA
         
         const nombresDias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -427,10 +429,10 @@ const db = firebase.database();
 
         let horariosGuardados = JSON.parse(localStorage.getItem('horarios_unas_v4')) || horariosDefault;
 
-        // --- 2. LÓGICA DE FECHAS (1 mes max) ---
+        // --- 3. LÓGICA DE FECHAS (1 mes max) ---
         const fechaInput = document.getElementById('fecha');
         
-       const formatearFechaLocal = (fecha) => {
+        const formatearFechaLocal = (fecha) => {
             const yyyy = fecha.getFullYear();
             const mm = String(fecha.getMonth() + 1).padStart(2, '0');
             const dd = String(fecha.getDate()).padStart(2, '0');
@@ -447,7 +449,7 @@ const db = firebase.database();
         fechaInput.setAttribute('min', minStr);
         fechaInput.setAttribute('max', maxStr);
 
-        // --- 3. HORAS DINÁMICAS Y CONEXIÓN A FIREBASE ---
+        // --- 4. HORAS DINÁMICAS Y CONEXIÓN A FIREBASE ---
         const horaSelect = document.getElementById('hora');
 
         fechaInput.addEventListener('change', function() {
@@ -482,12 +484,13 @@ const db = firebase.database();
                 });
             }
 
-            // AHORA SÍ: Leer Firebase para tachar las horas ocupadas
+            // LEER LA BASE DE DATOS PARA BLOQUEAR HORAS
             const fechaSeleccionada = this.value;
             if (!fechaSeleccionada) return;
 
             db.ref('reservas/' + fechaSeleccionada).on('value', (snapshot) => {
                 const reservas = snapshot.val() || {}; 
+
                 Array.from(horaSelect.options).forEach(option => {
                     if (reservas[option.value]) {
                         option.disabled = true;
@@ -498,7 +501,7 @@ const db = firebase.database();
             });
         });
         
-             // --- MENÚ DESPLEGABLE PERSONALIZADO ---
+        // --- 5. MENÚ DESPLEGABLE PERSONALIZADO ---
         const cajaSelect = document.getElementById('caja-select');
         const listaOpciones = document.getElementById('lista-opciones');
         const textoCajaSelect = document.getElementById('texto-caja-select');
@@ -535,14 +538,12 @@ const db = firebase.database();
                         
                         if (precioMatch) {
                             total += parseInt(precioMatch[1]);
-                            // Limpia la plata del nombre para que la caja no quede enorme
                             nombresCortos.push(texto.replace(/\$\d+/, '').trim());
                         } else {
                             nombresCortos.push("Diseños");
                         }
                     });
 
-                    // Escribe en la caja principal lo que eligió y el total
                     let textoVisible = nombresCortos.join(' + ');
                     if (total > 0) {
                         textoVisible += ` (Total: $${total})`;
@@ -551,31 +552,33 @@ const db = firebase.database();
                     textoCajaSelect.innerText = textoVisible;
                     textoCajaSelect.style.color = "var(--text-main)";
                     
-                    // Le guarda los datos completos (con precio) al calendario
                     inputOculto.value = seleccionados.map(c => c.value).join(' y ');
                 }
             });
         });
 
-
-               // --- 4. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
+        // --- 6. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
         document.getElementById('agendaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
             const servicio = document.getElementById('servicio').value;
-            const fecha = document.getElementById('fecha').value; // Viene como YYYY-MM-DD
-            const hora = document.getElementById('hora').value; // Viene como HH:00
+            
+            // Si el cliente no eligió servicio, le avisamos antes de seguir
+            if (!servicio) {
+                alert("Por favor, seleccioná al menos un servicio.");
+                return;
+            }
 
-            // ⚠️ ACÁ PONÉS EL MAIL DEL LOCAL DE TU AMIGA ⚠️
+            const fecha = document.getElementById('fecha').value; 
+            const hora = document.getElementById('hora').value; 
+
             const MAIL_AMIGA = "milyakovadaria@gmail.com"; 
 
-            // Formatear fechas para que Google Calendar las entienda (YYYYMMDDTHHmmss)
-            const fechaLimpia = fecha.replace(/-/g, ''); // Quita los guiones
-            const horaInicioStr = hora.replace(':', '') + '00'; // Ej: 14:00 -> 140000
+            const fechaLimpia = fecha.replace(/-/g, ''); 
+            const horaInicioStr = hora.replace(':', '') + '00'; 
             
-            // Asumimos que el turno dura 1 hora exacto para bloquear ese tiempo
             const horaNum = parseInt(hora.split(':')[0]);
             const horaFinNum = horaNum + 1;
             const horaFinStr = (horaFinNum < 10 ? '0' : '') + horaFinNum + '0000';
@@ -583,30 +586,44 @@ const db = firebase.database();
             const fechaInicioCal = `${fechaLimpia}T${horaInicioStr}`;
             const fechaFinCal = `${fechaLimpia}T${horaFinStr}`;
 
-            // Armar el título y la descripción del evento
             const titulo = encodeURIComponent(`💅 Turno: ${nombre} - ${servicio}`);
             const detalles = encodeURIComponent(`Cliente: ${nombre}\nTeléfono: ${telefono}\nServicio: ${servicio}`);
             
-            // Generar el link mágico de Google Calendar
             const urlCalendar = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${fechaInicioCal}/${fechaFinCal}&details=${detalles}&add=${MAIL_AMIGA}`;
 
-            // Cambiar mensaje visual
             const msjExito = document.getElementById('mensaje-exito');
             msjExito.innerText = "Guardando turno y abriendo calendario...";
             msjExito.style.display = 'block';
 
-           // Guardar en Firebase, esperar a que termine, y RECIÉN AHÍ saltar al calendario
+            // --- SISTEMA ANTIBLOQUEO (PARACAÍDAS) ---
+            let yaRedirigio = false;
+
+            setTimeout(() => {
+                if (!yaRedirigio) {
+                    yaRedirigio = true;
+                    console.log("Forzando redirección...");
+                    window.location.href = urlCalendar;
+                }
+            }, 2500);
+
+            // Guardar en Firebase
             db.ref('reservas/' + fecha + '/' + hora).set(true)
                 .then(() => {
-                    window.location.href = urlCalendar;
+                    if (!yaRedirigio) {
+                        yaRedirigio = true;
+                        window.location.href = urlCalendar;
+                    }
                 })
                 .catch((error) => {
-                    console.error("Error en Firebase:", error);
-                    alert("Hubo un error al bloquear la hora, intentá de nuevo.");
+                    console.error("Error al guardar:", error);
+                    if (!yaRedirigio) {
+                        yaRedirigio = true;
+                        window.location.href = urlCalendar;
+                    }
                 });
         });
 
-        // --- 5. PANEL ADMIN ---
+        // --- 7. PANEL ADMIN ---
         const contenedorDias = document.getElementById('dias-contenedor');
         for(let i = 0; i <= 6; i++) {
             let indexDia = i === 6 ? 0 : i + 1; 
