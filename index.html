@@ -430,44 +430,11 @@ const db = firebase.database();
         // --- 2. LÓGICA DE FECHAS (1 mes max) ---
         const fechaInput = document.getElementById('fecha');
         
-        const formatearFechaLocal = (fecha) => {
+       const formatearFechaLocal = (fecha) => {
             const yyyy = fecha.getFullYear();
             const mm = String(fecha.getMonth() + 1).padStart(2, '0');
             const dd = String(fecha.getDate()).padStart(2, '0');
             return `${yyyy}-${mm}-${dd}`;
-
-            // --- ESCUCHAR CUANDO LA CLIENTA ELIGE UN DÍA ---
-    fechaInput.addEventListener('change', () => {
-        const fechaSeleccionada = fechaInput.value;
-        
-        // Si no hay fecha elegida, no hacemos nada
-        if (!fechaSeleccionada) return;
-
-        // Leer la base de datos para bloquear horas de este día
-        db.ref('reservas/' + fechaSeleccionada).on('value', (snapshot) => {
-            const reservas = snapshot.val() || {}; 
-            const horaSelect = document.getElementById('hora');
-
-            // 1. Primero "limpiamos" todas las horas (por si había cambiado de día antes)
-            Array.from(horaSelect.options).forEach(option => {
-                if (option.value !== "") {
-                    option.disabled = false;
-                    option.text = option.value;
-                    option.style.color = "var(--text-main)"; // Color normal
-                }
-            });
-
-            // 2. Ahora sí, bloqueamos las que Firebase dice que están ocupadas
-            Array.from(horaSelect.options).forEach(option => {
-                if (reservas[option.value]) {
-                    option.disabled = true;
-                    option.text = option.value + " (Ocupado)";
-                    option.style.color = "#ccc"; // Lo pone en gris
-                }
-            });
-        });
-    });
-        });
         };
 
         const hoy = new Date();
@@ -480,7 +447,7 @@ const db = firebase.database();
         fechaInput.setAttribute('min', minStr);
         fechaInput.setAttribute('max', maxStr);
 
-        // --- 3. HORAS DINÁMICAS ---
+        // --- 3. HORAS DINÁMICAS Y CONEXIÓN A FIREBASE ---
         const horaSelect = document.getElementById('hora');
 
         fechaInput.addEventListener('change', function() {
@@ -514,6 +481,21 @@ const db = firebase.database();
                     horaSelect.appendChild(opt);
                 });
             }
+
+            // AHORA SÍ: Leer Firebase para tachar las horas ocupadas
+            const fechaSeleccionada = this.value;
+            if (!fechaSeleccionada) return;
+
+            db.ref('reservas/' + fechaSeleccionada).on('value', (snapshot) => {
+                const reservas = snapshot.val() || {}; 
+                Array.from(horaSelect.options).forEach(option => {
+                    if (reservas[option.value]) {
+                        option.disabled = true;
+                        option.text = option.value + " (Ocupado)";
+                        option.style.color = "#ccc"; // Lo pone en gris
+                    }
+                });
+            });
         });
         
              // --- MENÚ DESPLEGABLE PERSONALIZADO ---
