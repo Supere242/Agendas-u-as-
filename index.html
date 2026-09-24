@@ -280,7 +280,7 @@
 
             <div class="form-group">
                 <label for="servicio">Servicio</label>
-                <select id="servicio" required>
+                <select id="servicio" multiple required>
                     <option value="" disabled selected>Selecciona un servicio...</option>
                     <option value="Esmaltado Semipermanente $700">Esmaltado Semipermanente $700</option>
                     <option value="Capping $800">Capping $800</option>
@@ -415,6 +415,16 @@
                 });
             }
         });
+        
+        const servicioSelect = document.getElementById('servicio');
+servicioSelect.addEventListener('change', function() {
+    let opcionesSeleccionadas = Array.from(this.selectedOptions);
+    if (opcionesSeleccionadas.length > 2) {
+        alert("Podés seleccionar un máximo de 2 servicios.");
+        // Desmarca la última opción que intentó elegir
+        opcionesSeleccionadas[opcionesSeleccionadas.length - 1].selected = false;
+    }
+});
 
                // --- 4. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
         document.getElementById('agendaForm').addEventListener('submit', function(e) {
@@ -422,7 +432,8 @@
 
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
-            const servicio = document.getElementById('servicio').value;
+            const opciones = Array.from(document.getElementById('servicio').selectedOptions);
+            const servicio = opciones.map(opt => opt.value).join(' y ');
             const fecha = document.getElementById('fecha').value; // Viene como YYYY-MM-DD
             const hora = document.getElementById('hora').value; // Viene como HH:00
 
