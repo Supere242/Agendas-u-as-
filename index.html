@@ -279,19 +279,46 @@
             </div>
 
             <div class="form-group">
-    <label for="servicio">Servicio</label>
-    <select id="servicio" multiple required>
-        <option value="" disabled selected>Selecciona un servicio...</option>
-        <option value="Esmaltado Semipermanente $700">$700 - Esmaltado Semipermanente</option>
-        <option value="Capping $800">$800 - Capping</option>
-        <option value="Mantenimiento Capping $700">$700 - Mantenimiento Capping</option>
-        <option value="Soft Gel $900">$900 - Soft Gel</option>
-        <option value="Mantenimiento Soft Gel $800">$800 - Mantenimiento Soft Gel</option>    
-        <option value="Retiro de servicio $200">$200 - Retiro de servicio</option>
-        <option value="Retiro de servicio de otro salon $300">$300 - Retiro de otro salón</option>
-        <option value="Más de 2 uñas con diseños consultar precio">Consultar - Más de 2 uñas con diseños</option>
-    </select>
+    <label>Servicio</label>
+    
+    <!-- La caja visual que reemplaza al selector nativo -->
+    <div id="caja-select" style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+        <span id="texto-caja-select" style="color: #666; font-size: 0.95rem;">Selecciona hasta 2 servicios...</span>
+        <span style="font-size: 0.8rem;">▼</span>
+    </div>
+
+    <!-- La lista desplegable con checkboxes -->
+    <div id="lista-opciones" style="display: none; border: 1px solid var(--border-color); border-radius: 8px; background: white; max-height: 220px; overflow-y: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.05); padding: 5px 0;">
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Esmaltado Semipermanente $700"> Esmaltado Semipermanente $700
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Capping $800"> Capping $800
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Mantenimiento Capping $700"> Mantenimiento Capping $700
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Soft Gel $900"> Soft Gel $900
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Mantenimiento Soft Gel $800"> Mantenimiento Soft Gel $800
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Retiro de servicio $200"> Retiro de servicio $200
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer; border-bottom: 1px solid #f5f5f5;">
+            <input type="checkbox" class="servicio-cb" value="Retiro de servicio de otro salon $300"> Retiro de servicio de otro salon $300
+        </label>
+        <label style="display: flex; align-items: center; gap: 10px; padding: 10px 15px; margin: 0; cursor: pointer;">
+            <input type="checkbox" class="servicio-cb" value="Más de 2 uñas con diseños consultar precio"> Más de 2 uñas con diseños (consultar)
+        </label>
+    </div>
+
+    <!-- Input invisible que le pasa el dato final a Google Calendar -->
+    <input type="hidden" id="servicio" required>
 </div>
+
 
 
             <div class="form-group">
@@ -417,15 +444,65 @@
             }
         });
         
-        const servicioSelect = document.getElementById('servicio');
-servicioSelect.addEventListener('change', function() {
-    let opcionesSeleccionadas = Array.from(this.selectedOptions);
-    if (opcionesSeleccionadas.length > 2) {
-        alert("Podés seleccionar un máximo de 2 servicios.");
-        // Desmarca la última opción que intentó elegir
-        opcionesSeleccionadas[opcionesSeleccionadas.length - 1].selected = false;
-    }
-});
+             // --- MENÚ DESPLEGABLE PERSONALIZADO ---
+        const cajaSelect = document.getElementById('caja-select');
+        const listaOpciones = document.getElementById('lista-opciones');
+        const textoCajaSelect = document.getElementById('texto-caja-select');
+        const checkboxes = document.querySelectorAll('.servicio-cb');
+        const inputOculto = document.getElementById('servicio');
+
+        // Abre y cierra la lista al tocar
+        cajaSelect.addEventListener('click', () => {
+            listaOpciones.style.display = listaOpciones.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Lógica de suma y textos al seleccionar
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                let seleccionados = Array.from(checkboxes).filter(c => c.checked);
+                
+                if (seleccionados.length > 2) {
+                    alert("Podés seleccionar un máximo de 2 servicios.");
+                    cb.checked = false;
+                    seleccionados = Array.from(checkboxes).filter(c => c.checked);
+                }
+
+                if (seleccionados.length === 0) {
+                    textoCajaSelect.innerText = "Selecciona hasta 2 servicios...";
+                    textoCajaSelect.style.color = "#666";
+                    inputOculto.value = "";
+                } else {
+                    let total = 0;
+                    let nombresCortos = [];
+
+                    seleccionados.forEach(c => {
+                        let texto = c.value;
+                        let precioMatch = texto.match(/\$(\d+)/);
+                        
+                        if (precioMatch) {
+                            total += parseInt(precioMatch[1]);
+                            // Limpia la plata del nombre para que la caja no quede enorme
+                            nombresCortos.push(texto.replace(/\$\d+/, '').trim());
+                        } else {
+                            nombresCortos.push("Diseños");
+                        }
+                    });
+
+                    // Escribe en la caja principal lo que eligió y el total
+                    let textoVisible = nombresCortos.join(' + ');
+                    if (total > 0) {
+                        textoVisible += ` (Total: $${total})`;
+                    }
+
+                    textoCajaSelect.innerText = textoVisible;
+                    textoCajaSelect.style.color = "var(--text-main)";
+                    
+                    // Le guarda los datos completos (con precio) al calendario
+                    inputOculto.value = seleccionados.map(c => c.value).join(' y ');
+                }
+            });
+        });
+
 
                // --- 4. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
         document.getElementById('agendaForm').addEventListener('submit', function(e) {
@@ -433,8 +510,7 @@ servicioSelect.addEventListener('change', function() {
 
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
-            const opciones = Array.from(document.getElementById('servicio').selectedOptions);
-            const servicio = opciones.map(opt => opt.value).join(' y ');
+            const servicio = document.getElementById('servicio').value;
             const fecha = document.getElementById('fecha').value; // Viene como YYYY-MM-DD
             const hora = document.getElementById('hora').value; // Viene como HH:00
 
