@@ -413,27 +413,45 @@
             }
         });
 
-        // --- 4. ENVÍO WHATSAPP ---
+               // --- 4. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
         document.getElementById('agendaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const nombre = document.getElementById('nombre').value;
             const telefono = document.getElementById('telefono').value;
             const servicio = document.getElementById('servicio').value;
-            const fecha = document.getElementById('fecha').value;
-            const hora = document.getElementById('hora').value;
+            const fecha = document.getElementById('fecha').value; // Viene como YYYY-MM-DD
+            const hora = document.getElementById('hora').value; // Viene como HH:00
 
-            const [anio, mes, dia] = fecha.split('-');
-            const fechaFormateada = `${dia}/${mes}/${anio}`;
+            // ⚠️ ACÁ PONÉS EL MAIL DEL LOCAL DE TU AMIGA ⚠️
+            const MAIL_AMIGA = "dariiam4@gmail.com"; 
 
-            const mensajeOriginal = `Hola! Soy ${nombre}.\nQuería reservar un turno para *${servicio}*.\n\n📅 Fecha: ${fechaFormateada}\n⏰ Hora: ${hora}\n📞 Tel: ${telefono}`;
-            const mensajeCodificado = encodeURIComponent(mensajeOriginal);
-            const urlWhatsapp = `https://wa.me/${NUMERO_WHATSAPP}?text=${mensajeCodificado}`;
-
-            document.getElementById('mensaje-exito').style.display = 'block';
+            // Formatear fechas para que Google Calendar las entienda (YYYYMMDDTHHmmss)
+            const fechaLimpia = fecha.replace(/-/g, ''); // Quita los guiones
+            const horaInicioStr = hora.replace(':', '') + '00'; // Ej: 14:00 -> 140000
             
-                        window.location.href = urlWhatsapp; 
-            document.getElementById('agendaForm').reset();
+            // Asumimos que el turno dura 1 hora exacto para bloquear ese tiempo
+            const horaNum = parseInt(hora.split(':')[0]);
+            const horaFinNum = horaNum + 1;
+            const horaFinStr = (horaFinNum < 10 ? '0' : '') + horaFinNum + '0000';
+            
+            const fechaInicioCal = `${fechaLimpia}T${horaInicioStr}`;
+            const fechaFinCal = `${fechaLimpia}T${horaFinStr}`;
+
+            // Armar el título y la descripción del evento
+            const titulo = encodeURIComponent(`💅 Turno: ${nombre} - ${servicio}`);
+            const detalles = encodeURIComponent(`Cliente: ${nombre}\nTeléfono: ${telefono}\nServicio: ${servicio}`);
+            
+            // Generar el link mágico de Google Calendar
+            const urlCalendar = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${fechaInicioCal}/${fechaFinCal}&details=${detalles}&add=${MAIL_AMIGA}`;
+
+            // Cambiar mensaje visual
+            const msjExito = document.getElementById('mensaje-exito');
+            msjExito.innerText = "Abriendo tu calendario para guardar el turno...";
+            msjExito.style.display = 'block';
+            
+            // Redirigir al instante
+            window.location.href = urlCalendar;
         });
 
         // --- 5. PANEL ADMIN ---
