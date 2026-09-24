@@ -396,11 +396,23 @@
             </div>
         </div>
     </div>
-
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
     <script>
+        // --- 1. INICIALIZAR FIREBASE ---
+const firebaseConfig = {
+    apiKey: "AIzaSyANkY82Wp64TiCSUdGQRB7vFQqMXYsIlYg",
+    authDomain: "agenda-bloommy.firebaseapp.com",
+    projectId: "agenda-bloommy",
+    storageBucket: "agenda-bloommy.firebasestorage.app",
+    messagingSenderId: "589777318915",
+    appId: "1:589777318915:web:e1660622ddf69ee1c54a36"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
         // --- 1. CONFIGURACIÓN DEL SISTEMA ---
         const NUMERO_WHATSAPP = "59895340907"; // <-- CAMBIAR POR EL DE TU AMIGA
-
+        
         const nombresDias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
         
         const horariosDefault = {
@@ -423,6 +435,39 @@
             const mm = String(fecha.getMonth() + 1).padStart(2, '0');
             const dd = String(fecha.getDate()).padStart(2, '0');
             return `${yyyy}-${mm}-${dd}`;
+
+            // --- ESCUCHAR CUANDO LA CLIENTA ELIGE UN DÍA ---
+    fechaInput.addEventListener('change', () => {
+        const fechaSeleccionada = fechaInput.value;
+        
+        // Si no hay fecha elegida, no hacemos nada
+        if (!fechaSeleccionada) return;
+
+        // Leer la base de datos para bloquear horas de este día
+        db.ref('reservas/' + fechaSeleccionada).on('value', (snapshot) => {
+            const reservas = snapshot.val() || {}; 
+            const horaSelect = document.getElementById('hora');
+
+            // 1. Primero "limpiamos" todas las horas (por si había cambiado de día antes)
+            Array.from(horaSelect.options).forEach(option => {
+                if (option.value !== "") {
+                    option.disabled = false;
+                    option.text = option.value;
+                    option.style.color = "var(--text-main)"; // Color normal
+                }
+            });
+
+            // 2. Ahora sí, bloqueamos las que Firebase dice que están ocupadas
+            Array.from(horaSelect.options).forEach(option => {
+                if (reservas[option.value]) {
+                    option.disabled = true;
+                    option.text = option.value + " (Ocupado)";
+                    option.style.color = "#ccc"; // Lo pone en gris
+                }
+            });
+        });
+    });
+        });
         };
 
         const hoy = new Date();
@@ -565,11 +610,18 @@
 
             // Cambiar mensaje visual
             const msjExito = document.getElementById('mensaje-exito');
-            msjExito.innerText = "Abriendo tu calendario para guardar el turno...";
+            msjExito.innerText = "Guardando turno y abriendo calendario...";
             msjExito.style.display = 'block';
-            
-            // Redirigir al instante
-            window.location.href = urlCalendar;
+
+           // Guardar en Firebase, esperar a que termine, y RECIÉN AHÍ saltar al calendario
+            db.ref('reservas/' + fecha + '/' + hora).set(true)
+                .then(() => {
+                    window.location.href = urlCalendar;
+                })
+                .catch((error) => {
+                    console.error("Error en Firebase:", error);
+                    alert("Hubo un error al bloquear la hora, intentá de nuevo.");
+                });
         });
 
         // --- 5. PANEL ADMIN ---
