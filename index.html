@@ -557,7 +557,7 @@
             });
         });
 
-        // --- 6. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
+                // --- 6. REDIRECCIÓN DIRECTA A GOOGLE CALENDAR ---
         document.getElementById('agendaForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -591,28 +591,36 @@
             
             const urlCalendar = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&dates=${fechaInicioCal}/${fechaFinCal}&details=${detalles}&add=${MAIL_AMIGA}`;
 
+            // --- ACÁ EMPIEZA EL CAMBIO VISUAL ---
             const msjExito = document.getElementById('mensaje-exito');
-            msjExito.innerText = "Guardando turno y abriendo calendario...";
+            msjExito.innerHTML = `
+                <strong style="color: var(--text-main); font-size: 1.1rem;">¡Casi listo! ⏳</strong><br><br>
+                Te estamos llevando a Google Calendar.<br><br>
+                👉 Solo tocá <strong style="color: #d81b60;">"Guardar"</strong> (arriba a la derecha).<br>
+                <span style="font-size: 0.8rem; color: #666;">(Si pregunta por invitaciones, tocá "Enviar")</span>
+            `;
             msjExito.style.display = 'block';
 
-            // --- SISTEMA ANTIBLOQUEO (PARACAÍDAS) ---
+            // --- SISTEMA ANTIBLOQUEO Y TIEMPO DE LECTURA ---
             let yaRedirigio = false;
 
+            // Le damos 3.5 segundos máximo para que lea las instrucciones
             setTimeout(() => {
                 if (!yaRedirigio) {
                     yaRedirigio = true;
-                    console.log("Forzando redirección...");
                     window.location.href = urlCalendar;
                 }
-            }, 2500);
+            }, 3500);
 
             // Guardar en Firebase
             db.ref('reservas/' + fecha + '/' + hora).set(true)
                 .then(() => {
-                    if (!yaRedirigio) {
-                        yaRedirigio = true;
-                        window.location.href = urlCalendar;
-                    }
+                    setTimeout(() => { 
+                        if (!yaRedirigio) {
+                            yaRedirigio = true;
+                            window.location.href = urlCalendar;
+                        }
+                    }, 1500); // Pequeña pausa extra para asegurar que lea
                 })
                 .catch((error) => {
                     console.error("Error al guardar:", error);
@@ -621,6 +629,8 @@
                         window.location.href = urlCalendar;
                     }
                 });
+        });
+
         });
 
         // --- 7. PANEL ADMIN ---
